@@ -1,0 +1,125 @@
+<div class="container">
+
+    <div class="row pt-5 pb-5">
+        <div class="col-md-6">
+            <div class="card bg-light">
+                <div class="card-header">
+                    <h6>JWT generated</h6>
+                </div>
+                <div class="card-body">
+                    <pre>{{accessToken | json}}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card bg-light">
+                <div class="card-header">
+                    <h6>Authenticated user's details</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6"><pre>{{accessTokenDetails | json}}</pre></div>
+                    <div class="col-md-6"><pre><button class="btn btn-danger" (click)="logout()" [disabled]="loading">Logout</button>
+                    </pre></div>
+                    </div>   
+                    
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <form [formGroup]="form" (submit)="onSubmit()">
+                        <h5 class="card-title">Create Grant Form</h5>                        
+                        <div class="row" *ngIf="errors">
+                            <div class="col">
+                                <div class="alert alert-danger">
+                                    <strong>Oops!</strong> You have entered invalid credentials
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">                                
+                                <div class="form-group">
+                                    <input type="input" id="id" formControlName="id" [(ngModel)]="grantApiService.selectedGrant.id" class="form-control" hidden/>
+                                    <label for="Name">Grant Name</label>
+                                    <input type="input" id="grant_name" formControlName="grant_name" [(ngModel)]="grantApiService.selectedGrant.grant_name" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="Status">Grant Status</label>
+                                    <input type="input" id="grant_status" formControlName="grant_status" [(ngModel)]="grantApiService.selectedGrant.grant_status" class="form-control" />
+                                </div>
+                                <div clas="form-group">
+                                    <select class="form-control" formControlName="exampleFormControlSelect1" [(value)]="selectedStatusOption_">
+                                        <option *ngFor="let status of statusoptions; let i = index" [value]="statusoptions[i]">{{status.viewValue}}</option>
+                                  </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Grantor">Grantor</label>
+                                    <input type="input" id="grantor" formControlName="grantor" [(ngModel)]="grantApiService.selectedGrant.grantor" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="GeoLocation">Geograhical Location</label>
+                                    <input type="input" id="grant_geo_location" formControlName="grant_geo_location" [(ngModel)]="grantApiService.selectedGrant.grant_geo_location"  class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="Description">Description</label>
+                                    <input type="input" id="grant_description" formControlName="grant_description" [(ngModel)]="grantApiService.selectedGrant.grant_description" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="Amount">Amount</label>
+                                    <input type="input" id="grant_amount" formControlName="grant_amount" [(ngModel)]="grantApiService.selectedGrant.grant_amount" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="Currency">Currency</label>
+                                    <input type="input" id="grant_amount_currency" formControlName="grant_amount_currency" [(ngModel)]="grantApiService.selectedGrant.grant_amount_currency" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col d-flex flex-row justify-content-center align-content-center">
+                                <button type="submit" class="btn btn-dark col-12" [disabled]="loading">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-sm table-hover">
+                        <tr *ngFor="let grant of grantApiService.grants">
+                            <td>{{grant.grant_name}}</td>
+                            <td>{{grant.grant_description}}</td>
+                            <td>{{grant.grantor}}</td>
+                            <td>
+                              <button (click)="onEdit(grant)" class="btn btn-info col-4">Edit</button>
+                              <a (click)="onEdit(grant)"> | 
+                                <i class="fa fa-pencil-square-o"></i>
+                              </a>
+                              <button (click)="onDelete(grant.id)" class="btn btn-danger col-4">Delete</button>
+                              <a class="btn" (click)="onDelete(grant.id)">
+                                <i class="fa fa-trash-o"></i>
+                              </a>
+                            </td>
+                        </tr>
+                      </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+    
